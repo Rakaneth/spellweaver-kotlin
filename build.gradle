@@ -1,0 +1,25 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.31'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'org.rakaneth'
+version '0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+    maven { url 'https://jitpack.io'}
+    //maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "com.github.Valkryst:VTerminal:$vterm_version"
+    implementation "com.squidpony:squidlib-util:$squidlib_version"
+    implementation "org.yaml:snakeyaml:$snakeyaml_version"
+    implementation "org.slf4j:slf4j-api:$slf4j_version"
+    implementation "org.slf4j:slf4j-jdk14:$slf4j_version"
+    implementation "org.hexworks.cobalt:cobalt.core:$cobalt_version"
+}
