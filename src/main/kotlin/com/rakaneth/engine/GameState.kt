@@ -1,11 +1,9 @@
 package com.rakaneth.engine
 
 import com.rakaneth.entity.Entity
-import com.rakaneth.entity.PlayerComponent
-import com.rakaneth.entity.VisionComponent
+import com.rakaneth.entity.component.PlayerComponent
 import com.rakaneth.extensions.canSee
 import com.rakaneth.extensions.resetVision
-import com.rakaneth.factory.EntityFactory
 import com.rakaneth.map.GameMap
 
 object GameState {

@@ -1,5 +1,6 @@
-package com.rakaneth.entity
+package com.rakaneth.entity.component
 
+import com.rakaneth.entity.Entity
 import com.rakaneth.map.GameMap
 import squidpony.squidgrid.FOV
 import squidpony.squidgrid.Radius

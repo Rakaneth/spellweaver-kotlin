@@ -1,6 +1,7 @@
 package com.rakaneth.entity
 
-import com.rakaneth.engine.GameState
+import com.rakaneth.Swatch
+import com.rakaneth.entity.component.PlayerComponent
 import java.awt.Color
 
 class CreatureBuilder {
@@ -9,7 +10,7 @@ class CreatureBuilder {
     var vision: Double = 6.0
     var glyph: Char = '@'
     var fg: Color = Color.WHITE
-    var bg: Color = Color.BLACK
+    var bg: Color = Swatch.TRANSPARENT
 
     fun withName(name: String) = also {
         it.name = name

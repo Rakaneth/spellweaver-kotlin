@@ -1,8 +1,8 @@
 package com.rakaneth.scene
 
+import com.rakaneth.Swatch
 import com.rakaneth.engine.GameState
 import com.rakaneth.entity.Entity
-import com.rakaneth.entity.VisionComponent
 import com.rakaneth.extensions.canSee
 import com.rakaneth.extensions.component1
 import com.rakaneth.extensions.component2
@@ -59,8 +59,9 @@ class MapPanel(width: Int, height: Int): VPanel(width, height) {
             }
         }
         entities.forEach { entity ->
+            val bg = if (entity.bg == Swatch.TRANSPARENT) map.floorColor else entity.bg
             if (center.canSee(entity.x, entity.y) || map.light) {
-                drawAtPoint(entity.x, entity.y, entity.glyph, entity.fg, entity.bg)
+                drawAtPoint(entity.x, entity.y, entity.glyph, entity.fg, bg)
             }
         }
     }

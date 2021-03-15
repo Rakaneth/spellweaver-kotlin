@@ -2,7 +2,7 @@
 table:
   imp:
     glyph: d
-    color: 128,0,0
+    color: 191,0,0
     name: imp
     desc: A tiny, flying creature made of fire.
     hp: 15
@@ -17,7 +17,7 @@ table:
     freq: 10
   lichen:
     glyph: f
-    color: 0,96,0
+    color: 0,192,0
     name: lichen
     desc: A brightly-colored fungus growing on stone.
     hp: 5
@@ -29,7 +29,7 @@ table:
     freq: 5
   wolf:
     glyph: w
-    color: 121,101,97
+    color: 191,128,104
     name: wolf
     desc: A lone wolf, rabid and ferocious
     hp: 25
@@ -42,7 +42,7 @@ table:
     freq: 8
   spider:
     glyph: i
-    color: 128,0,128
+    color: 191,0,191
     name: spider
     desc: An eight-legged, oversized arachnid.
     hp: 20
@@ -55,7 +55,7 @@ table:
     freq: 6
   lesserEarthElemental:
     glyph: e
-    color: 121,101,97
+    color: 0,198,0
     name: lesser earth elemental
     desc: A rough-hewn, animated statue.
     hp: 45
@@ -70,7 +70,7 @@ table:
     freq: 5
   lesserFireElemental:
     glyph: e
-    color: 128,0,0
+    color: 191,0,0
     name: lesser fire elemental
     desc: A dancing, man-shaped flame.
     hp: 30
@@ -84,7 +84,7 @@ table:
     freq: 5
   lesserIceElemental:
     glyph: e
-    color: 0,0,128
+    color: 0,0,191
     name: lesser ice elemental
     desc: A slender, animate statue of ice with blades for hands.
     hp: 35
@@ -99,7 +99,7 @@ table:
     freq: 5
   lesserLightningElemental:
     glyph: e
-    color: 128,128,0
+    color: 191,191,0
     name: lesser lightning elemental
     desc: A ball lightning with a sinister face.
     hp: 20
@@ -112,7 +112,7 @@ table:
     freq: 5
   greaterShadow:
     glyph: D
-    color: 64,0,64
+    color: 191,0,191
     name: greater shadow
     desc: An empty void, filled with malevolence.
     hp: 50
@@ -124,7 +124,7 @@ table:
     damType: DARK
     weakness: LIGHT
   player:
-    color: 94,0,94
+    color: 191,100,191
     desc: Spellweaver's Apprentice
     hp: 30
     damType: PHYSICAL

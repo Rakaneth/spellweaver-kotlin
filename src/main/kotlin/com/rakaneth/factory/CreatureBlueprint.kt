@@ -18,4 +18,5 @@ data class CreatureBlueprint(
     val ai: String = "HUNT",
     val damType: String = "NONE",
     val level: Int = 0,
+    val vision: Double = 6.0,
     override val freq: Int = 0): Blueprint

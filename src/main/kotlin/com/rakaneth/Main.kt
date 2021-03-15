@@ -31,7 +31,5 @@ object Main {
         SwingUtilities.invokeLater {
             panel.redraw()
         }
-
-
     }
 }

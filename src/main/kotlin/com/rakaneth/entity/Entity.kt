@@ -1,13 +1,12 @@
 package com.rakaneth.entity
 
+import com.rakaneth.entity.component.Component
 import org.hexworks.cobalt.datatypes.Maybe
 import squidpony.squidmath.Coord
 import squidpony.squidmath.SquidID
 import java.awt.Color
-import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
-import kotlin.reflect.safeCast
 
 class Entity(val glyph: Char,
              val name: String,
@@ -36,6 +35,10 @@ class Entity(val glyph: Char,
 
     fun addComponent(comp: Component) {
         components.add(comp)
+    }
+
+    fun addMany(vararg comps: Component) {
+        comps.forEach { addComponent(it) }
     }
 
     fun removeComponent(name: String) {

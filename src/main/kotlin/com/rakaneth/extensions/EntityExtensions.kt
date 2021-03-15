@@ -1,7 +1,7 @@
 package com.rakaneth.extensions
 
 import com.rakaneth.entity.Entity
-import com.rakaneth.entity.VisionComponent
+import com.rakaneth.entity.component.VisionComponent
 import com.rakaneth.map.GameMap
 
 fun Entity.canSee(mx: Int, my: Int): Boolean {
