@@ -3,7 +3,7 @@ package com.rakaneth
 import java.awt.Color
 
 object Swatch {
-    val CAVE_WALL_BG = Color(127,101,96)
+    val CAVE_WALL_BG = Color(127, 101, 96)
     val CAVE_FLOOR_BG = Color(64, 50, 48)
     val STONE_WALL_BG = Color(127, 127, 127)
     val STONE_FLOOR_BG = Color(64, 64, 64)

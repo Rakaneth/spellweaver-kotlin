@@ -8,12 +8,14 @@ import java.awt.Color
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
-class Entity(val glyph: Char,
-             val name: String,
-             val desc: String,
-             var mapID: String,
-             val fg: Color,
-             val bg: Color) {
+class Entity(
+    val glyph: Char,
+    val name: String,
+    val desc: String,
+    var mapID: String,
+    val fg: Color,
+    val bg: Color
+) {
     private val components: MutableList<Component> = mutableListOf()
     val id: String = SquidID().toString()
     var pos: Coord = Coord.get(0, 0)
@@ -22,20 +24,22 @@ class Entity(val glyph: Char,
     val y: Int
         get() = pos.y
 
-    fun <T: Component> getComponent(klass: KClass<T>): Maybe<T> {
+    fun <T : Component> getComponent(klass: KClass<T>): Maybe<T> {
         val comp = components.filterIsInstance(klass.java).firstOrNull()
         return if (comp == null) {
             Maybe.empty()
         } else Maybe.of(klass.cast(comp))
     }
 
-    fun <T: Component> whenHas(klass: KClass<T>, fn: (T) -> Unit) {
+    fun <T : Component> whenHas(klass: KClass<T>, fn: (T) -> Unit) {
         getComponent(klass).ifPresent(fn)
     }
 
     fun addComponent(comp: Component) {
         components.add(comp)
     }
+
+    fun <T : Component> has(klass: KClass<T>): Boolean = getComponent(klass).isPresent
 
     fun addMany(vararg comps: Component) {
         comps.forEach { addComponent(it) }

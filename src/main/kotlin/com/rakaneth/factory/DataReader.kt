@@ -11,7 +11,7 @@ object DataReader {
     private const val creatureFile: String = "creatures.yml"
     private val logger: Logger = LoggerFactory.getLogger(DataReader::class.java)
 
-    private fun <T: BlueprintTable<out Blueprint>> loadBlueprints(fileName: String, klass: Class<T>): T {
+    private fun <T : BlueprintTable<out Blueprint>> loadBlueprints(fileName: String, klass: Class<T>): T {
         val yaml = Yaml()
         yaml.setBeanAccess(BeanAccess.FIELD)
         var result: T? = null

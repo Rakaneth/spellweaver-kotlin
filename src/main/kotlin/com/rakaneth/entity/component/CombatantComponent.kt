@@ -2,12 +2,14 @@ package com.rakaneth.entity.component
 
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 
-class CombatantComponent(atk: Int,
-                         dmg: Int,
-                         dfp: Int,
-                         tou: Int,
-                         will: Int,
-                         spd: Int): Component {
+class CombatantComponent(
+    atk: Int,
+    dmg: Int,
+    dfp: Int,
+    tou: Int,
+    will: Int,
+    spd: Int
+) : Component {
     override val name: String = "combatant"
 
     val atkProp = createPropertyFrom(atk)

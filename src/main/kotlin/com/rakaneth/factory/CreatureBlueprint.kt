@@ -19,4 +19,5 @@ data class CreatureBlueprint(
     val damType: String = "NONE",
     val level: Int = 0,
     val vision: Double = 6.0,
-    override val freq: Int = 0): Blueprint
+    override val freq: Int = 0
+) : Blueprint

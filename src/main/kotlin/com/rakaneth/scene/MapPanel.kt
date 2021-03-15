@@ -13,18 +13,19 @@ import squidpony.squidmath.MathExtras
 import java.awt.Color
 import kotlin.math.max
 
-class MapPanel(width: Int, height: Int): VPanel(width, height) {
+class MapPanel(width: Int, height: Int) : VPanel(width, height) {
     private val map: GameMap
         get() = GameState.curMap
 
     private val center: Entity
         get() = GameState.player
 
-    private fun calc(p: Int, m: Int, s: Int) = MathExtras.clamp(p - s/2, 0, max(0, m - s))
+    private fun calc(p: Int, m: Int, s: Int) = MathExtras.clamp(p - s / 2, 0, max(0, m - s))
     private val cam: Coord
         get() = Coord.get(
             calc(center.x, map.width, this.widthInTiles),
-            calc(center.y, map.height, this.heightInTiles))
+            calc(center.y, map.height, this.heightInTiles)
+        )
 
     private fun mapToScreen(mx: Int, my: Int): Coord {
         val mp = Coord.get(mx, my)

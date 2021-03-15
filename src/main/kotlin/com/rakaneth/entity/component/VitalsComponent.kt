@@ -2,7 +2,7 @@ package com.rakaneth.entity.component
 
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 
-class VitalsComponent(startHP: Int): Component {
+class VitalsComponent(startHP: Int) : Component {
     override val name: String = "vitals"
     val hpProp = createPropertyFrom(startHP)
     val maxHPProp = createPropertyFrom(startHP)

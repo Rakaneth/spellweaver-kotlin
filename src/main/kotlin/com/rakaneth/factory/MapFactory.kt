@@ -1,11 +1,9 @@
 package com.rakaneth.factory
 
 import com.rakaneth.Swatch
-import com.rakaneth.engine.GameState
 import com.rakaneth.extensions.component1
 import com.rakaneth.extensions.component2
 import com.rakaneth.map.GameMap
-import squidpony.squidmath.Coord
 
 object MapFactory {
     val firstFloor = GameMap.newBuilder(50, 50)

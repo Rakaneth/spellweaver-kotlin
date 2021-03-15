@@ -1,6 +1,5 @@
 package com.rakaneth
 
-import com.rakaneth.engine.GameState
 import com.rakaneth.scene.MapPanel
 import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel
 import javax.swing.JFrame

@@ -3,7 +3,7 @@ package com.rakaneth.factory
 import com.rakaneth.engine.GameRNG
 import squidpony.squidmath.ProbabilityTable
 
-interface BlueprintTable<T: Blueprint> {
+interface BlueprintTable<T : Blueprint> {
     val table: Map<String, T>
 
     fun createProbabilityTable(fn: (T) -> Boolean): ProbabilityTable<T> {

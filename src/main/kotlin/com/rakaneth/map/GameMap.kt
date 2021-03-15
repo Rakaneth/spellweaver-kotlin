@@ -12,14 +12,15 @@ import squidpony.squidgrid.mapping.DungeonUtility
 import squidpony.squidmath.Coord
 import squidpony.squidmath.GreasedRegion
 import java.awt.Color
-import java.util.*
 
-class GameMap(val id: String,
-              val name: String,
-              val tiles: Array<CharArray>,
-              var light: Boolean,
-              val wallColor: Color,
-              val floorColor: Color) {
+class GameMap(
+    val id: String,
+    val name: String,
+    val tiles: Array<CharArray>,
+    var light: Boolean,
+    val wallColor: Color,
+    val floorColor: Color
+) {
     data class Connection(val dest: Coord, val mapID: String)
     data class Tile(val glyph: Char, val walk: Boolean, val see: Boolean, val fg: Color, val bg: Color)
 
@@ -31,16 +32,20 @@ class GameMap(val id: String,
         '+' to Tile('+', walk = false, see = false, fg = Color.WHITE, bg = DOOR_BG),
         '/' to Tile('/', walk = true, see = true, fg = Color.WHITE, bg = DOOR_BG),
         '>' to Tile('>', walk = true, see = true, fg = STAIR_FG, bg = floorColor),
-        '<' to Tile('<', walk = true, see = true, fg = STAIR_FG, bg = floorColor))
+        '<' to Tile('<', walk = true, see = true, fg = STAIR_FG, bg = floorColor)
+    )
 
     private val floors: GreasedRegion = GreasedRegion(tiles, '.')
     private val temp: GreasedRegion = GreasedRegion(tiles, '.')
     private val explored: GreasedRegion = GreasedRegion(floors.width, floors.height)
     var resistances: Array<DoubleArray> = DungeonUtility.generateSimpleResistances(tiles)
     val connections: MutableMap<Coord, Connection> = mutableMapOf()
-    val costs: Array<DoubleArray> = DungeonUtility.generateCostMap(tiles, mapOf(
-        '~' to 3.0,
-        ',' to 1.5), 1.0)
+    val costs: Array<DoubleArray> = DungeonUtility.generateCostMap(
+        tiles, mapOf(
+            '~' to 3.0,
+            ',' to 1.5
+        ), 1.0
+    )
     val dmap: DijkstraMap = DijkstraMap(costs, Measurement.MANHATTAN)
     val width: Int
         get() = tiles.size
@@ -82,13 +87,14 @@ class GameMap(val id: String,
     private fun tileCheck(x: Int, y: Int, fn: (Tile) -> Boolean): Boolean {
         return tile(x, y).fold(
             whenEmpty = { false },
-            whenPresent = fn)
+            whenPresent = fn
+        )
     }
 
-    fun isBlocking(x: Int, y: Int) = tileCheck(x, y) { t -> !t.walk}
-    fun isOpaque(x: Int, y: Int) = tileCheck(x, y) { t -> !t.see}
-    fun isClosedDoor(x: Int, y: Int) = tileCheck(x, y) { t -> t.glyph == '+'}
-    fun isStairs(x: Int, y: Int) = tileCheck(x, y) { t -> "<>".indexOf(t.glyph) > -1}
+    fun isBlocking(x: Int, y: Int) = tileCheck(x, y) { t -> !t.walk }
+    fun isOpaque(x: Int, y: Int) = tileCheck(x, y) { t -> !t.see }
+    fun isClosedDoor(x: Int, y: Int) = tileCheck(x, y) { t -> t.glyph == '+' }
+    fun isStairs(x: Int, y: Int) = tileCheck(x, y) { t -> "<>".indexOf(t.glyph) > -1 }
 
     fun randomFloor(): Coord = floors.singleRandom(GameRNG.mapRNG)
     fun randomFloorAround(x: Int, y: Int, r: Int): Coord {
@@ -104,7 +110,11 @@ class GameMap(val id: String,
             .singleRandom(GameRNG.mapRNG)
     }
 
-    val visionMap: Array<DoubleArray> = Array(width) { DoubleArray(height)}
+    fun rawTile(x: Int, y: Int): Char {
+        return if (isInBounds(x, y)) tiles[x][y] else 0.toChar()
+    }
+
+    val visionMap: Array<DoubleArray> = Array(width) { DoubleArray(height) }
 
     companion object {
         fun newBuilder(width: Int, height: Int): MapBuilder = MapBuilder(width, height)

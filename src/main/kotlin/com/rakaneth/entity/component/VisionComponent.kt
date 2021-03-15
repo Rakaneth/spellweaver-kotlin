@@ -5,8 +5,8 @@ import com.rakaneth.map.GameMap
 import squidpony.squidgrid.FOV
 import squidpony.squidgrid.Radius
 
-class VisionComponent(var visible: Array<DoubleArray>, var vision: Double): Component {
-    override val name: String =  "vision"
+class VisionComponent(var visible: Array<DoubleArray>, var vision: Double) : Component {
+    override val name: String = "vision"
 
     fun updateFOV(map: GameMap, entity: Entity) {
         FOV.reuseFOVSymmetrical(map.resistances, visible, entity.x, entity.y, vision, Radius.DIAMOND)
