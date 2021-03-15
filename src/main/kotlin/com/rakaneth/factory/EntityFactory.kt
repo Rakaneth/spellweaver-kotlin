@@ -10,6 +10,8 @@ import com.rakaneth.map.GameMap
 import squidpony.squidmath.Coord
 
 object EntityFactory {
+    val creatureBP = DataReader.loadCreatures()
+
     fun newPlayer(name: String): Entity {
         val newPlayer = Entity.newCreatureBuilder()
             .withName(name)

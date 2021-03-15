@@ -5,18 +5,18 @@ import com.rakaneth.factory.EntityFactory
 import com.rakaneth.factory.MapFactory
 
 object GameConfig {
-    val GAME_W = 100
-    val GAME_H = 40
-    val MAP_W = 70
-    val MAP_H = 30
-    val STAT_W = 30
-    val STAT_H = 30
-    val INFO_W = 30
-    val INFO_H = 10
-    val SKIL_W = 30
-    val SKIL_H = 10
-    val MSG_W = 40
-    val MSG_H = 10
+    const val GAME_W = 100
+    const val GAME_H = 40
+    const val MAP_W = 70
+    const val MAP_H = 30
+    const val STAT_W = 30
+    const val STAT_H = 30
+    const val INFO_W = 30
+    const val INFO_H = 10
+    const val SKIL_W = 30
+    const val SKIL_H = 10
+    const val MSG_W = 40
+    const val MSG_H = 10
 
     fun newGame() {
         MapFactory.connect(MapFactory.firstFloor, MapFactory.secondFloor, '>', '<')
