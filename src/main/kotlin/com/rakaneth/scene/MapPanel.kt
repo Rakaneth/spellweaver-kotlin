@@ -11,9 +11,11 @@ import com.valkryst.VTerminal.component.VPanel
 import squidpony.squidmath.Coord
 import squidpony.squidmath.MathExtras
 import java.awt.Color
+import java.awt.event.KeyEvent
 import kotlin.math.max
 
 class MapPanel(width: Int, height: Int) : VPanel(width, height) {
+
     private val map: GameMap
         get() = GameState.curMap
 
