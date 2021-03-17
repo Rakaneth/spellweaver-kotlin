@@ -17,8 +17,6 @@ object SceneManager {
     private val frame = JFrame("Spellweaver")
     private val panel = VPanel(GAME_W, GAME_H)
 
-
-
     fun startUI () {
         val gc = GameConfig()
         gc.newGame()
@@ -33,9 +31,10 @@ object SceneManager {
         frame.pack()
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         frame.isVisible = true
+        frame.isResizable = false
     }
 
-    fun addScene(scene: Scene) {
+    private fun addScene(scene: Scene) {
         panel.add(scene, scene.sceneName)
     }
 

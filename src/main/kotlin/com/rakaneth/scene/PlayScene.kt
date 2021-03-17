@@ -8,6 +8,7 @@ import com.rakaneth.entity.component.CombatantComponent
 import com.rakaneth.entity.component.VitalsComponent
 import com.rakaneth.extensions.*
 import com.valkryst.VTerminal.component.VPanel
+import org.hexworks.cobalt.databinding.api.binding.bindAndWith
 import org.hexworks.cobalt.databinding.api.binding.bindTransform
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
@@ -26,6 +27,17 @@ class PlayScene(): Scene("play") {
     val player: Entity
         get() = GameState.player
 
+    private val mapDone = createPropertyFrom(false)
+    private val statsDone = createPropertyFrom(false)
+    private val infoDone = createPropertyFrom(false)
+    private val msgDone = createPropertyFrom(false)
+    private val magDone = createPropertyFrom(false)
+
+    private val allDone = mapDone.bindAndWith(statsDone)
+        .bindAndWith(infoDone)
+        .bindAndWith(msgDone)
+        .bindAndWith(magDone)
+
     init {
         layout = FlowLayout(FlowLayout.LEADING, 0, 0)
         border(stats, "Stats")
@@ -42,10 +54,21 @@ class PlayScene(): Scene("play") {
         add(info)
 
         GameState.redrawProp.onChange {
-            if (it.newValue) {
-                redraw()
+            if (it.newValue)
+            {
+                map.redraw()
+                mapDone.updateValue(true)
             }
-            GameState.redrawProp.value = false
+
+        }
+
+        allDone.onChange {
+            if (it.newValue) {
+                GameState.redraw = false
+                listOf(mapDone, magDone, infoDone, statsDone, msgDone).forEach { flag ->
+                    flag.updateValue(false)
+                }
+            }
         }
     }
 
@@ -62,20 +85,24 @@ class PlayScene(): Scene("play") {
 
         val hpLabel = JLabel(vitals.hpStringProp.value)
         val pwrLabel = JLabel(power.pwrStringProp.value)
-        val atkLabel = JLabel("Atk: ${player.atk}")
-        val dmgLabel = JLabel("Dmg: ${player.dmg}")
-        val dfpLabel = JLabel("Dfp: ${player.dfp}")
-        val touLabel = JLabel("Tou: ${player.tou}")
-        val spdLabel = JLabel("Spd: ${player.spd}")
-        val willLabel = JLabel("Will: ${player.will}")
+        val atkLabel = JLabel()
+        val dmgLabel = JLabel()
+        val dfpLabel = JLabel()
+        val touLabel = JLabel()
+        val spdLabel = JLabel()
+        val willLabel = JLabel()
 
         GameState.redrawProp.onChange {
-            atkLabel.text = "Atk: ${player.atk}"
-            dmgLabel.text = "Dmg: ${player.dmg}"
-            dfpLabel.text = "Dfp: ${player.dfp}"
-            touLabel.text = "Tou: ${player.tou}"
-            spdLabel.text = "Tou: ${player.tou}"
-            willLabel.text = "Will: ${player.will}"
+            if (it.newValue) {
+                atkLabel.text = "Atk: ${player.atk}"
+                dmgLabel.text = "Dmg: ${player.dmg}"
+                dfpLabel.text = "Dfp: ${player.dfp}"
+                touLabel.text = "Tou: ${player.tou}"
+                spdLabel.text = "Spd: ${player.spd}"
+                willLabel.text = "Will: ${player.will}"
+                redraw()
+                GameState.redrawProp.value = false
+            }
         }
 
         stats.add(hpLabel)
@@ -93,5 +120,9 @@ class PlayScene(): Scene("play") {
         stats.reset()
         stats.repaint()
         super.redraw()
+    }
+
+    override fun setKeyBinds() {
+        TODO("Not yet implemented")
     }
 }

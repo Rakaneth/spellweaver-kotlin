@@ -4,6 +4,7 @@ import com.rakaneth.scene.MapPanel
 import com.rakaneth.scene.SceneManager
 import com.valkryst.VTerminal.palette.Palette
 import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel
+import java.awt.Toolkit
 import java.io.FileInputStream
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
@@ -14,7 +15,10 @@ import javax.swing.WindowConstants.EXIT_ON_CLOSE
 object Main {
     @JvmStatic
     fun main(args: Array<String>) {
-        val laf = VTerminalLookAndFeel.getInstance(16)
+        val dims = Toolkit.getDefaultToolkit().screenSize
+        val height: Int = dims.height / 55
+
+        val laf = VTerminalLookAndFeel.getInstance(height)
         try {
             UIManager.setLookAndFeel(laf)
         } catch (e: UnsupportedLookAndFeelException) {
