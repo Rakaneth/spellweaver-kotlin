@@ -1,6 +1,9 @@
 package com.rakaneth.entity.component
 
+import org.hexworks.cobalt.databinding.api.binding.bindPlusWith
+import org.hexworks.cobalt.databinding.api.binding.bindTransform
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
+import org.hexworks.cobalt.databinding.internal.binding.ComputedDualBinding
 
 class CombatantComponent(
     atk: Int,
@@ -11,18 +14,10 @@ class CombatantComponent(
     spd: Int
 ) : Component {
     override val name: String = "combatant"
-
-    val atkProp = createPropertyFrom(atk)
-    val dmgProp = createPropertyFrom(dmg)
-    val dfpProp = createPropertyFrom(dfp)
-    val touProp = createPropertyFrom(tou)
-    val willProp = createPropertyFrom(will)
-    val spdProp = createPropertyFrom(spd)
-
-    var atk: Int by atkProp.asDelegate()
-    var dmg: Int by dmgProp.asDelegate()
-    var dfp: Int by dfpProp.asDelegate()
-    var tou: Int by touProp.asDelegate()
-    var will: Int by willProp.asDelegate()
-    var spd: Int by spdProp.asDelegate()
+    var atk: Int = 0
+    var dmg: Int = 0
+    var dfp: Int = 0
+    var tou: Int = 0
+    var will: Int = 0
+    var spd: Int = 0
 }

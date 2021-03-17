@@ -5,6 +5,8 @@ import com.rakaneth.engine.effect.StatChanger
 import com.rakaneth.entity.Entity
 import com.rakaneth.entity.component.*
 import com.rakaneth.map.GameMap
+import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
+import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
 import squidpony.squidmath.Coord
 
 fun Entity.canSee(mx: Int, my: Int): Boolean {
@@ -69,6 +71,9 @@ val Entity.spd
     get() = this.getStat(
         combatSelector = { it.spd },
         statChangeSelector = { it.spd })
+
+val Entity.spdProp
+    get() = createPropertyFrom(this.spd)
 
 val Entity.will
     get() = this.getStat(

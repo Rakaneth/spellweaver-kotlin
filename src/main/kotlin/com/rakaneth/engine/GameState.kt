@@ -7,6 +7,7 @@ import com.rakaneth.extensions.canSee
 import com.rakaneth.extensions.resetSpell
 import com.rakaneth.extensions.resetVision
 import com.rakaneth.map.GameMap
+import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 
 sealed class BlockResult {
     data class EntityBlocker(val entity: Entity) : BlockResult()
@@ -18,6 +19,10 @@ object GameState {
     private val maps: MutableMap<String, GameMap> = mutableMapOf()
     private var curMapID: String = "floor1"
     private val entities: MutableList<Entity> = mutableListOf()
+    val redrawProp = createPropertyFrom(false)
+    val updateProp = createPropertyFrom(false)
+    var redraw: Boolean by redrawProp.asDelegate()
+    var update: Boolean by updateProp.asDelegate()
 
     val curMap: GameMap
         get() = maps[curMapID]!!
@@ -25,7 +30,6 @@ object GameState {
         get() = entities.first { it.getComponent(PlayerComponent::class).isPresent }
     val currentEntities: List<Entity>
         get() = entities.filter { it.mapID == curMapID }
-
 
     fun addEntity(e: Entity) {
         entities.add(e)

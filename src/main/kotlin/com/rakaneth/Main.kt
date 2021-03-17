@@ -1,7 +1,10 @@
 package com.rakaneth
 
 import com.rakaneth.scene.MapPanel
+import com.rakaneth.scene.SceneManager
+import com.valkryst.VTerminal.palette.Palette
 import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel
+import java.io.FileInputStream
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 import javax.swing.UIManager
@@ -11,8 +14,6 @@ import javax.swing.WindowConstants.EXIT_ON_CLOSE
 object Main {
     @JvmStatic
     fun main(args: Array<String>) {
-        GameConfig.newGame()
-
         val laf = VTerminalLookAndFeel.getInstance(16)
         try {
             UIManager.setLookAndFeel(laf)
@@ -20,15 +21,12 @@ object Main {
             e.printStackTrace()
         }
 
-        val frame = JFrame("Spellweaver")
-        val panel = MapPanel(GameConfig.MAP_W, GameConfig.MAP_H)
-        frame.add(panel)
-        frame.pack()
-        frame.defaultCloseOperation = EXIT_ON_CLOSE
-        frame.isVisible = true
-
-        SwingUtilities.invokeLater {
-            panel.redraw()
+        val stream = Main.javaClass.classLoader.getResourceAsStream("Dracula.properties")
+        stream.use {
+            Palette.loadAndRegisterProperties(it!!)
         }
+
+        SceneManager.startUI()
+        SceneManager.changeScene("play")
     }
 }

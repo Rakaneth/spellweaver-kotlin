@@ -3,6 +3,7 @@ package com.rakaneth.factory
 import com.rakaneth.entity.Entity
 import com.rakaneth.entity.component.*
 import com.rakaneth.extensions.resetVision
+import com.rakaneth.extensions.will
 import com.rakaneth.map.GameMap
 import org.hexworks.cobalt.datatypes.Maybe
 import org.slf4j.LoggerFactory
@@ -57,7 +58,7 @@ object EntityFactory {
     fun newPlayer(name: String): Entity {
         val newPlayer = creatureFromBP("player")
         newPlayer.addComponent(PlayerComponent())
-        newPlayer.addComponent(CasterComponent())
+        newPlayer.addComponent(CasterComponent(newPlayer.will))
         return newPlayer
     }
 
