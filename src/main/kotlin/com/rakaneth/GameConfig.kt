@@ -3,6 +3,7 @@ package com.rakaneth
 import com.rakaneth.engine.GameState
 import com.rakaneth.factory.EntityFactory
 import com.rakaneth.factory.MapFactory
+import java.awt.Toolkit
 
 class GameConfig {
 
@@ -39,6 +40,7 @@ class GameConfig {
         const val SKIL_H = 10
         const val MSG_W = 40
         const val MSG_H = 10
+        val FONT_SIZE: Int  = Toolkit.getDefaultToolkit().screenSize.height / 55
 
         fun create(): GameConfig = GameConfig()
     }

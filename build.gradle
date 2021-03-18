@@ -21,5 +21,7 @@ dependencies {
     implementation "org.yaml:snakeyaml:$snakeyaml_version"
     implementation "org.slf4j:slf4j-api:$slf4j_version"
     implementation "org.slf4j:slf4j-jdk14:$slf4j_version"
-    implementation "org.hexworks.cobalt:cobalt.core:$cobalt_version"
+    implementation("org.hexworks.cobalt:cobalt.core:$cobalt_version") {
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
 }

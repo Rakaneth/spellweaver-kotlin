@@ -2,28 +2,31 @@ package com.rakaneth.scene
 
 import com.rakaneth.GameConfig
 import com.rakaneth.engine.GameState
+import com.rakaneth.engine.Messenger
 import com.rakaneth.entity.Entity
 import com.rakaneth.entity.component.CasterComponent
 import com.rakaneth.entity.component.CombatantComponent
 import com.rakaneth.entity.component.VitalsComponent
 import com.rakaneth.extensions.*
 import com.valkryst.VTerminal.component.VPanel
+import com.valkryst.VTerminal.component.VTextArea
+import com.valkryst.VTerminal.component.VTextPane
 import org.hexworks.cobalt.databinding.api.binding.bindAndWith
 import org.hexworks.cobalt.databinding.api.binding.bindTransform
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
+import java.awt.BorderLayout
 import java.awt.Color
+import java.awt.Dimension
 import java.awt.FlowLayout
-import javax.swing.BorderFactory
-import javax.swing.BoxLayout
-import javax.swing.JLabel
+import javax.swing.*
 
 class PlayScene(): Scene("play") {
     val map: MapPanel = MapPanel(GameConfig.MAP_W, GameConfig.MAP_H)
     val stats: VPanel = VPanel(GameConfig.STAT_W, GameConfig.STAT_H)
     val info: VPanel = VPanel(GameConfig.INFO_W, GameConfig.INFO_H)
     val skills: VPanel = VPanel(GameConfig.SKIL_W, GameConfig.SKIL_H)
-    val msgs: VPanel = VPanel(GameConfig.MSG_W, GameConfig.MSG_H)
+    val msgs: VPanel =  VPanel(GameConfig.MSG_W, GameConfig.MSG_H)
     val player: Entity
         get() = GameState.player
 
@@ -46,6 +49,9 @@ class PlayScene(): Scene("play") {
         border(info, "info")
 
         createStats()
+        createMsgs()
+        createSkills()
+        createInfo()
 
         add(map)
         add(stats)
@@ -56,23 +62,27 @@ class PlayScene(): Scene("play") {
         GameState.redrawProp.onChange {
             if (it.newValue)
             {
-                map.redraw()
                 mapDone.updateValue(true)
             }
-
         }
 
         allDone.onChange {
             if (it.newValue) {
-                GameState.redraw = false
-                listOf(mapDone, magDone, infoDone, statsDone, msgDone).forEach { flag ->
-                    flag.updateValue(false)
+                SwingUtilities.invokeLater {
+                    map.redraw()
+                    redrawPanel(stats)
+                    redrawPanel(skills)
+                    redrawPanel(info)
+                    GameState.redraw = false
+                    listOf(mapDone, magDone, infoDone, statsDone, msgDone).forEach { flag ->
+                        flag.updateValue(false)
+                    }
                 }
             }
         }
     }
 
-    private fun border(panel: VPanel, title: String) {
+    private fun border(panel: JComponent, title: String) {
         val lb = BorderFactory.createLineBorder(Color.WHITE)
         panel.border = BorderFactory.createTitledBorder(lb, title)
     }
@@ -100,8 +110,7 @@ class PlayScene(): Scene("play") {
                 touLabel.text = "Tou: ${player.tou}"
                 spdLabel.text = "Spd: ${player.spd}"
                 willLabel.text = "Will: ${player.will}"
-                redraw()
-                GameState.redrawProp.value = false
+                statsDone.updateValue(true)
             }
         }
 
@@ -115,11 +124,46 @@ class PlayScene(): Scene("play") {
         stats.add(willLabel)
     }
 
-    override fun redraw() {
-        map.redraw()
-        stats.reset()
-        stats.repaint()
-        super.redraw()
+    private fun createMsgs() {
+        val pane = VTextArea(GameConfig.MSG_H - 2, GameConfig.MSG_W - 2)
+        val scroll = JScrollPane(pane)
+
+        pane.rows = 100
+        scroll.preferredSize = Dimension(22*GameConfig.FONT_SIZE, 10*GameConfig.FONT_SIZE)
+        pane.lineWrap = true
+        pane.wrapStyleWord = true
+        pane.isEditable = false
+        GameState.redrawProp.onChange {
+            if (it.newValue) {
+                Messenger.messages.reversed().forEach { msg ->
+                    SwingUtilities.invokeLater {
+                        pane.append("- $msg\n")
+                        pane.caretPosition = 0
+                    }
+                }
+                msgDone.updateValue(true)
+            }
+        }
+        scroll.verticalScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
+        scroll.horizontalScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+        msgs.add(scroll, BorderLayout.CENTER)
+    }
+
+    private fun createSkills() {
+        GameState.redrawProp.onChange {
+            magDone.updateValue(true)
+        }
+    }
+
+    private fun createInfo() {
+        GameState.redrawProp.onChange {
+            infoDone.updateValue(true)
+        }
+    }
+
+    private fun redrawPanel(panel: VPanel) {
+        panel.reset()
+        panel.repaint()
     }
 
     override fun setKeyBinds() {

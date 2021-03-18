@@ -23,3 +23,9 @@ fun VPanel.addKeybind(keyCode: Int, mods: Int = 0, id: String, fn: (ActionEvent?
     this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(getKeyStroke(keyCode, mods, false), id)
     actionMap.put(id, action)
 }
+
+fun VPanel.drawString(x: Int, y: Int, s: String) {
+    for (i in s.indices) {
+        setCodePointAt(x+i, y, s[i].toInt())
+    }
+}
