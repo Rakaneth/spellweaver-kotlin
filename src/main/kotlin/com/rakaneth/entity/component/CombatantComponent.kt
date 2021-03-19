@@ -1,5 +1,6 @@
 package com.rakaneth.entity.component
 
+import com.rakaneth.engine.GameElement
 import org.hexworks.cobalt.databinding.api.binding.bindPlusWith
 import org.hexworks.cobalt.databinding.api.binding.bindTransform
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom

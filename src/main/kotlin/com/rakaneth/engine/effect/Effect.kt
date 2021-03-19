@@ -14,6 +14,7 @@ open class Effect(val name: String, protected var duration: Int, val isDebuff: B
     protected open fun reportApply(bearer: Entity): String = ""
     protected open fun reportExpire(bearer: Entity): String = ""
     protected open fun <T : Effect> reportMerge(otherEff: T, bearer: Entity): String = ""
+    protected open val modifier: String = ""
 
     val isExpired: Boolean
         get() = duration == 0
@@ -51,6 +52,17 @@ open class Effect(val name: String, protected var duration: Int, val isDebuff: B
             it.removeEffect(this)
             Messenger.addMessage(reportExpire(bearer), bearer)
         }
+    }
+
+    override fun toString(): String {
+        var output = name
+        if (modifier.isNotEmpty()) {
+            output += ": $modifier"
+        }
+        if (duration > 0) {
+            output += " ($duration)"
+        }
+        return output
     }
 
 

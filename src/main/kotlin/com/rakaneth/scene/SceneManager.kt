@@ -21,6 +21,8 @@ object SceneManager {
         val gc = GameConfig()
         gc.newGame()
         panel.layout = cl
+        panel.isFocusable = true
+
         addScene(PlayScene())
         /*
         panel.add(titlePanel, "title")

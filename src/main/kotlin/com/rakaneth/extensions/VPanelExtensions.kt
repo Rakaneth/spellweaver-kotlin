@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent
 import java.awt.event.KeyEvent
 import javax.swing.AbstractAction
 import javax.swing.Action
+import javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
 import javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW
 import javax.swing.KeyStroke
 import javax.swing.KeyStroke.getKeyStroke

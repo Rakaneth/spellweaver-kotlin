@@ -11,17 +11,22 @@ import com.rakaneth.extensions.*
 import com.valkryst.VTerminal.component.VPanel
 import com.valkryst.VTerminal.component.VTextArea
 import com.valkryst.VTerminal.component.VTextPane
+import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel
 import org.hexworks.cobalt.databinding.api.binding.bindAndWith
 import org.hexworks.cobalt.databinding.api.binding.bindTransform
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
+import squidpony.squidgrid.Direction
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
+import java.awt.event.KeyEvent
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import javax.swing.*
 
-class PlayScene(): Scene("play") {
+class PlayScene: Scene("play") {
     val map: MapPanel = MapPanel(GameConfig.MAP_W, GameConfig.MAP_H)
     val stats: VPanel = VPanel(GameConfig.STAT_W, GameConfig.STAT_H)
     val info: VPanel = VPanel(GameConfig.INFO_W, GameConfig.INFO_H)
@@ -43,6 +48,7 @@ class PlayScene(): Scene("play") {
 
     init {
         layout = FlowLayout(FlowLayout.LEADING, 0, 0)
+
         border(stats, "Stats")
         border(msgs, "Messages")
         border(skills, "Magic")
@@ -80,6 +86,34 @@ class PlayScene(): Scene("play") {
                 }
             }
         }
+
+        addKeybind(KeyEvent.VK_W, id = "up") {
+            GameState.player.moveBy(Direction.UP)
+            GameState.redraw = true
+        }
+        addKeybind(KeyEvent.VK_S, id = "down") {
+            GameState.player.moveBy(Direction.DOWN)
+            GameState.redraw = true
+        }
+        addKeybind(KeyEvent.VK_A, id = "left") {
+            GameState.player.moveBy(Direction.LEFT)
+            GameState.redraw = true
+        }
+        addKeybind(KeyEvent.VK_D, id = "right") {
+            GameState.player.moveBy(Direction.RIGHT)
+            GameState.redraw = true
+        }
+
+        map.addMouseListener(object: MouseAdapter() {
+            override fun mouseReleased(e: MouseEvent?) {
+                val laf = UIManager.getLookAndFeel() as VTerminalLookAndFeel
+                val x = e?.x?.div(laf.tileWidth) ?: 0
+                val y = e?.y?.div(laf.tileHeight) ?: 0
+
+                map.setCodePointAt(x, y, 'X'.toInt())
+                map.repaint()
+            }
+        })
     }
 
     private fun border(panel: JComponent, title: String) {
@@ -164,9 +198,5 @@ class PlayScene(): Scene("play") {
     private fun redrawPanel(panel: VPanel) {
         panel.reset()
         panel.repaint()
-    }
-
-    override fun setKeyBinds() {
-        TODO("Not yet implemented")
     }
 }

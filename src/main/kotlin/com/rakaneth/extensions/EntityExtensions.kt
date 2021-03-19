@@ -7,6 +7,7 @@ import com.rakaneth.entity.component.*
 import com.rakaneth.map.GameMap
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
+import squidpony.squidgrid.Direction
 import squidpony.squidmath.Coord
 
 fun Entity.canSee(mx: Int, my: Int): Boolean {
@@ -59,6 +60,14 @@ fun Entity.getStat(
         whenPresent = { it.sumOfEffects(statChangeSelector) })
 
     return rawTotal + effTotal
+}
+
+fun Entity.moveTo(c: Coord) {
+    this.pos = c
+}
+
+fun Entity.moveBy(dir: Direction) {
+    this.pos = this.pos.translate(dir)
 }
 
 val Entity.obscuredName: String

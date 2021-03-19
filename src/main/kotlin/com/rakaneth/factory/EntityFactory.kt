@@ -26,7 +26,7 @@ object EntityFactory {
         return Maybe.of(Color(r.toInt(), g.toInt(), b.toInt()))
     }
 
-    private fun baseCreature(bp: CreatureBlueprint): Entity {
+    private fun baseCreature(bp: CreatureBlueprint, name: String): Entity {
         val fg = colorFromString(bp.color).fold(
             whenEmpty = {
                 logger.error("Failed to parse color ${bp.color} for creature ${bp.name}.")
@@ -34,7 +34,7 @@ object EntityFactory {
             },
             whenPresent = { it })
         return Entity.newCreatureBuilder()
-            .withName(bp.name)
+            .withName(if (name.isNotEmpty()) name else bp.name)
             .withDesc(bp.desc)
             .withFG(fg)
             .withGlyph(bp.glyph)
@@ -45,18 +45,19 @@ object EntityFactory {
      * Creates a creature with build ID `buildID` in `creatures.yml.`
      * make sure to seed creatures with the `seed` or `seedRandom` functions.
      */
-    fun creatureFromBP(buildID: String): Entity {
+    fun creatureFromBP(buildID: String, name: String = ""): Entity {
         val bp = creatureBP.table[buildID]!!
-        val foetus = baseCreature(bp)
+        val foetus = baseCreature(bp, name)
         val vitals = VitalsComponent(bp.hp)
         val stats = CombatantComponent(bp.atk, bp.dmg, bp.dfp, bp.tou, bp.will, bp.spd)
         val vision = VisionComponent(Array(1) { DoubleArray(1) }, bp.vision)
-        foetus.addMany(vitals, stats, vision)
+        val effects = EffectComponent()
+        foetus.addMany(vitals, stats, vision, effects)
         return foetus
     }
 
     fun newPlayer(name: String): Entity {
-        val newPlayer = creatureFromBP("player")
+        val newPlayer = creatureFromBP("player", name)
         newPlayer.addComponent(PlayerComponent())
         newPlayer.addComponent(CasterComponent(newPlayer.will))
         return newPlayer
