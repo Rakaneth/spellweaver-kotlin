@@ -104,16 +104,6 @@ class PlayScene: Scene("play") {
             GameState.redraw = true
         }
 
-        map.addMouseListener(object: MouseAdapter() {
-            override fun mouseReleased(e: MouseEvent?) {
-                val laf = UIManager.getLookAndFeel() as VTerminalLookAndFeel
-                val x = e?.x?.div(laf.tileWidth) ?: 0
-                val y = e?.y?.div(laf.tileHeight) ?: 0
-
-                map.setCodePointAt(x, y, 'X'.toInt())
-                map.repaint()
-            }
-        })
     }
 
     private fun border(panel: JComponent, title: String) {

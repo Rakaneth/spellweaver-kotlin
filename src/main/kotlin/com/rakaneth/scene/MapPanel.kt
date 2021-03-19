@@ -8,10 +8,15 @@ import com.rakaneth.extensions.component1
 import com.rakaneth.extensions.component2
 import com.rakaneth.map.GameMap
 import com.valkryst.VTerminal.component.VPanel
+import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel
 import squidpony.squidmath.Coord
 import squidpony.squidmath.MathExtras
 import java.awt.Color
 import java.awt.event.KeyEvent
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+import java.awt.event.MouseMotionListener
+import javax.swing.UIManager
 import kotlin.math.max
 
 class MapPanel(width: Int, height: Int) : VPanel(width, height) {
@@ -34,12 +39,32 @@ class MapPanel(width: Int, height: Int) : VPanel(width, height) {
         return mp.translate(-cx, -cy)
     }
 
+    private fun screenToMap(sx: Int, sy: Int): Coord {
+        val sp = Coord.get(sx, sy)
+        val (cx, cy) = cam
+        return sp.translate(cx, cy)
+    }
+
+    fun onMouseClick(fn: (Int, Int) -> Unit) {
+        addMouseListener(object: MouseAdapter() {
+            override fun mouseReleased(evt: MouseEvent?) {
+                val laf = UIManager.getLookAndFeel() as VTerminalLookAndFeel
+                val sx = evt?.x?.div(laf.tileWidth) ?: 0
+                val sy = evt?.y?.div(laf.tileHeight) ?: 0
+                val (mx, my) = screenToMap(sx, sy)
+                fn(mx, my)
+            }
+        })
+    }
+
+
+
     private fun inView(mx: Int, my: Int): Boolean {
         val (sx, sy) = mapToScreen(mx, my)
         return sx in 0 until widthInTiles && sy in 0 until heightInTiles
     }
 
-    private fun drawAtPoint(mx: Int, my: Int, glyph: Char, fg: Color, bg: Color) {
+    fun drawAtPoint(mx: Int, my: Int, glyph: Char, fg: Color, bg: Color) {
         if (inView(mx, my)) {
             val (sx, sy) = mapToScreen(mx, my)
             setCodePointAt(sx, sy, glyph.toInt())
