@@ -25,7 +25,7 @@ open class Effect(val name: String, protected var duration: Int, val isDebuff: B
             duration = (duration - ticks).coerceAtLeast(0)
             Messenger.addMessage(reportTick(bearer, ticks), bearer)
         }
-        if (duration == 0) remove(bearer)
+        //if (duration == 0) remove(bearer)
     }
 
     fun apply(bearer: Entity) {
@@ -49,7 +49,6 @@ open class Effect(val name: String, protected var duration: Int, val isDebuff: B
         val maybeComponent = bearer.getComponent(EffectComponent::class)
         maybeComponent.ifPresent {
             onExpire(bearer)
-            it.removeEffect(this)
             Messenger.addMessage(reportExpire(bearer), bearer)
         }
     }

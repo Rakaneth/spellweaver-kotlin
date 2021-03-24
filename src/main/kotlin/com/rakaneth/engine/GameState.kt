@@ -1,7 +1,9 @@
 package com.rakaneth.engine
 
 import com.rakaneth.entity.Entity
+import com.rakaneth.entity.component.ActorComponent
 import com.rakaneth.entity.component.BlockerComponent
+import com.rakaneth.entity.component.EffectComponent
 import com.rakaneth.entity.component.PlayerComponent
 import com.rakaneth.extensions.canSee
 import com.rakaneth.extensions.resetSpell
@@ -31,11 +33,31 @@ object GameState {
     val currentEntities: List<Entity>
         get() = entities.filter { it.mapID == curMapID }
 
+    init {
+        updateProp.onChange {
+            if (it.newValue) {
+                queue.update()
+                updateProp.updateValue(false)
+            }
+        }
+    }
+
+    lateinit var queue: ActorQueue
+
+    fun tick(ticks: Int) {
+        currentEntities.forEach { entity ->
+            entity.whenHas(EffectComponent::class) { eff ->
+                eff.tick(entity, ticks)
+            }
+        }
+    }
+
     fun addEntity(e: Entity) {
         entities.add(e)
     }
 
     fun removeEntity(e: Entity) {
+        queue.remove(e)
         entities.remove(e)
     }
 
@@ -48,6 +70,7 @@ object GameState {
         player.mapID = mapID
         player.resetVision(curMap)
         player.resetSpell()
+        queue = ActorQueue(currentEntities.filter { it.has(ActorComponent::class)})
     }
 
     fun playerCanSee(e: Entity) = player.canSee(e)

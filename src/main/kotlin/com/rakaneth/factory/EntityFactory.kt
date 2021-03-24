@@ -51,8 +51,9 @@ object EntityFactory {
         val vitals = VitalsComponent(bp.hp)
         val stats = CombatantComponent(bp.atk, bp.dmg, bp.dfp, bp.tou, bp.will, bp.spd)
         val vision = VisionComponent(Array(1) { DoubleArray(1) }, bp.vision)
+        val actor = ActorComponent()
         val effects = EffectComponent()
-        foetus.addMany(vitals, stats, vision, effects)
+        foetus.addMany(vitals, stats, vision, effects, actor)
         return foetus
     }
 

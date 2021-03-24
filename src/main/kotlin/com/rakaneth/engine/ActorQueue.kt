@@ -1,25 +1,26 @@
 package com.rakaneth.engine
 
+import com.rakaneth.engine.action.GameAction
 import com.rakaneth.entity.Entity
 import com.rakaneth.extensions.isPlayer
 import com.rakaneth.extensions.spd
 
 class ActorQueue(actors: List<Entity>) {
+    private val queue: MutableList<ActorTurn> = mutableListOf()
+    private var gameTurn: Int = 1
+    private var gameTick: Int = 0
+
     init {
         actors.forEach { actor ->
             queue.add(ActorTurn(actor, gameTurn, gameTick))
         }
     }
 
-    private val queue: MutableList<ActorTurn> = mutableListOf()
-    private var gameTurn: Int = 1
-    private var gameTick: Int = 0
-
     data class ActorTurn(val actor: Entity, var round: Int, var tick: Int) : Comparable<ActorTurn> {
         operator fun plusAssign(ticks: Int) {
             val newTurn = (tick + ticks) / 100
             val newTick = (tick + ticks) % 100
-            round = newTurn
+            round += newTurn
             tick = newTick
         }
 
@@ -53,6 +54,26 @@ class ActorQueue(actors: List<Entity>) {
         return 0
     }
 
+    /**
+     * Handles the player's actions, which are not processed here.
+     * `entity` should be the player most of the time since NPCs
+     * will be handled by {@link #act()}.
+     */
+    fun actWithAction(entity: Entity, action: GameAction) {
+        val maybeTurn = queue.find{ t -> t.actor == entity} ?: return
+        val cost =  (action.doAction() - entity.spd).coerceAtLeast(1)
+        maybeTurn += cost
+    }
+
+    fun add(entity: Entity) {
+        //MECHANICS: creatures added mid-stream (summoned guys) act on the following turn
+        queue.add(ActorTurn(entity, gameTurn + 1, 0))
+    }
+
+    fun remove(entity: Entity) {
+        queue.removeIf { it.actor == entity }
+    }
+
     fun update() {
         while (true) {
             val lastTurn = gameTurn
@@ -62,7 +83,7 @@ class ActorQueue(actors: List<Entity>) {
             val cost = act(curActor)
             curActorTurn += cost
             if (gameTurn > lastTurn) {
-                //GameState.tick(gameTurn - lastTurn)
+                GameState.tick(gameTurn - lastTurn)
             }
         }
     }

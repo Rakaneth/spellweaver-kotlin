@@ -19,10 +19,19 @@ class Spell(
     var range: Int = 1
     var potency: Int = 1
     var radius: Int = 1
+    var cost: Int = 0
 
 
     fun charge(element: GameElement) {
 
+    }
+
+    private fun firstCast(element: GameElement) {
+        when (element) {
+            is GameElement.Fire -> {
+
+            }
+        }
     }
 
 

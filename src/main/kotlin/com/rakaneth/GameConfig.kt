@@ -25,6 +25,7 @@ class GameConfig {
         GameState.addEntity(EntityFactory.newPlayer("Farin"))
         GameState.changeLevel("floor1")
         EntityFactory.randomSeed(GameState.player, GameState.curMap)
+        GameState.update = true
     }
 
     companion object {
