@@ -78,13 +78,13 @@ class ActorQueue(actors: List<Entity>) {
         while (true) {
             val lastTurn = gameTurn
             val curActorTurn = next()
+            if (gameTurn > lastTurn) {
+                GameState.tick(gameTurn - lastTurn)
+            }
             val curActor = curActorTurn.actor
             if (curActor.isPlayer) break
             val cost = act(curActor)
             curActorTurn += cost
-            if (gameTurn > lastTurn) {
-                GameState.tick(gameTurn - lastTurn)
-            }
         }
     }
 
