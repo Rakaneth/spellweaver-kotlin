@@ -1,6 +1,8 @@
 package com.rakaneth.entity.component
 
 import com.rakaneth.engine.GameElement
+import com.rakaneth.engine.Messenger
+import com.rakaneth.entity.Entity
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
 import org.hexworks.cobalt.databinding.internal.binding.ComputedDualBinding
@@ -20,18 +22,25 @@ class VitalsComponent(startHP: Int,
     val isAlive: Boolean
         get() = hp > 0
 
-    fun isWeak(element: GameElement): Boolean = weakness == element
-    fun isResistant(element: GameElement): Boolean = resistance == element
-    fun applyWeakness(amt: Int): Int = (amt * 1.5).toInt()
-    fun applyResistance(amt: Int): Int = amt / 2
+    private fun isWeak(element: GameElement): Boolean = weakness == element
+    private fun isResistant(element: GameElement): Boolean = resistance == element
+    private fun applyWeakness(amt: Int): Int = (amt * 1.5).toInt()
+    private fun applyResistance(amt: Int): Int = amt / 2
 
-    fun takeDamage(dmg: Int, element: GameElement) {
+    fun takeDamage(bearer: Entity, dmg: Int, element: GameElement) {
         val amt: Int = when {
             //MECHANICS: weakness 150%, resistance 50%
-            isWeak(element) -> applyWeakness(dmg)
-            isResistant((element)) -> applyResistance(dmg)
+            isWeak(element) -> {
+                Messenger.addMessage("${bearer.name} is WEAK against ${element.eleName} damage!", bearer)
+                applyWeakness(dmg)
+            }
+            isResistant(element) -> {
+                Messenger.addMessage("${bearer.name} is RESISTANT to ${element.eleName} damage!", bearer)
+                applyResistance(dmg)
+            }
             else -> dmg
         }
         hp -= amt
+        Messenger.addMessage("${bearer.name} takes $amt ${element.name} damage", bearer)
     }
 }

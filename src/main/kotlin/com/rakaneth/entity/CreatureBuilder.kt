@@ -1,7 +1,7 @@
 package com.rakaneth.entity
 
 import com.rakaneth.Swatch
-import com.rakaneth.entity.component.PlayerComponent
+import com.rakaneth.entity.component.flags.PlayerComponent
 import java.awt.Color
 
 class CreatureBuilder {

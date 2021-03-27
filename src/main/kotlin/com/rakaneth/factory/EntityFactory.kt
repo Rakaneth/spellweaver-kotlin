@@ -2,6 +2,8 @@ package com.rakaneth.factory
 
 import com.rakaneth.entity.Entity
 import com.rakaneth.entity.component.*
+import com.rakaneth.entity.component.flags.ActorComponent
+import com.rakaneth.entity.component.flags.PlayerComponent
 import com.rakaneth.extensions.resetVision
 import com.rakaneth.extensions.will
 import com.rakaneth.map.GameMap

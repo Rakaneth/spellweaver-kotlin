@@ -1,7 +1,7 @@
 package com.rakaneth.entity.component
 
 import com.rakaneth.engine.effect.Effect
-import com.rakaneth.engine.effect.StatChanger
+import com.rakaneth.engine.effect.StatChangerEffect
 import com.rakaneth.entity.Entity
 import org.hexworks.cobalt.datatypes.Maybe
 
@@ -20,9 +20,9 @@ class EffectComponent : Component {
         effects.remove(effName)
     }
 
-    fun sumOfEffects(fn: (StatChanger) -> Int): Int {
+    fun sumOfEffects(fn: (StatChangerEffect) -> Int): Int {
         return effects.values
-            .filterIsInstance(StatChanger::class.java)
+            .filterIsInstance(StatChangerEffect::class.java)
             .sumOf(fn)
     }
 

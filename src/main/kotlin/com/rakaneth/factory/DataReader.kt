@@ -19,7 +19,7 @@ object DataReader {
         try {
             BufferedInputStream(stream).use {
                 result = yaml.loadAs(it, klass)
-                logger.info("${result?.table?.size} items loaded.")
+                logger.info("${result?.table?.size} items loaded from $fileName.")
             }
         } catch (e: IOException) {
             e.printStackTrace()

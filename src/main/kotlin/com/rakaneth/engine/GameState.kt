@@ -1,10 +1,10 @@
 package com.rakaneth.engine
 
 import com.rakaneth.entity.Entity
-import com.rakaneth.entity.component.ActorComponent
-import com.rakaneth.entity.component.BlockerComponent
+import com.rakaneth.entity.component.flags.ActorComponent
+import com.rakaneth.entity.component.flags.BlockerComponent
 import com.rakaneth.entity.component.EffectComponent
-import com.rakaneth.entity.component.PlayerComponent
+import com.rakaneth.entity.component.flags.PlayerComponent
 import com.rakaneth.extensions.canSee
 import com.rakaneth.extensions.resetSpell
 import com.rakaneth.extensions.resetVision

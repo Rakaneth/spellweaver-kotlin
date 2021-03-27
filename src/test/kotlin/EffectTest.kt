@@ -2,9 +2,7 @@ import com.rakaneth.GameConfig
 import com.rakaneth.engine.GameElement
 import com.rakaneth.engine.GameState
 import com.rakaneth.engine.Messenger
-import com.rakaneth.engine.effect.InstantDamage
-import com.rakaneth.entity.Entity
-import com.rakaneth.factory.EntityFactory
+import com.rakaneth.engine.effect.InstantDamageEffect
 import org.junit.jupiter.api.*
 import org.slf4j.LoggerFactory
 import java.util.logging.LogManager
@@ -35,11 +33,11 @@ class EffectTest {
     @Test
     @DisplayName("Should return the correct damage string")
     fun whenApplyDamage_shouldReturnCorrectString() {
-        val dmgEffect = InstantDamage(5, GameElement.Fire())
+        val dmgEffect = InstantDamageEffect(5, GameElement.Fire)
         dmgEffect.apply(GameState.player)
 
         //do NOT do this in game code - NOTHING should do NONE damage
-        val weakEffect = InstantDamage(5, GameElement.None)
+        val weakEffect = InstantDamageEffect(5, GameElement.None)
         weakEffect.apply(GameState.player)
     }
 }

@@ -1,12 +1,12 @@
 package com.rakaneth.extensions
 
 import com.rakaneth.engine.GameState
-import com.rakaneth.engine.effect.StatChanger
+import com.rakaneth.engine.effect.StatChangerEffect
 import com.rakaneth.entity.Entity
 import com.rakaneth.entity.component.*
+import com.rakaneth.entity.component.flags.PlayerComponent
 import com.rakaneth.map.GameMap
 import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
-import org.hexworks.cobalt.databinding.internal.binding.ComputedBinding
 import squidpony.squidgrid.Direction
 import squidpony.squidmath.Coord
 
@@ -49,7 +49,7 @@ fun Entity.resetSpell() {
 
 fun Entity.getStat(
     combatSelector: (CombatantComponent) -> Int,
-    statChangeSelector: (StatChanger) -> Int
+    statChangeSelector: (StatChangerEffect) -> Int
 ): Int {
     val rawTotal = this.getComponent(CombatantComponent::class).fold(
         whenEmpty = { 0 },
