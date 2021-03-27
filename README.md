@@ -9,8 +9,7 @@ will be found in mystical spellbooks left in the dungeon, filled with your maste
 Up to three elements can be combined in a single spell. Each element must be different.
 The first element chosen determines the **base element** of the spell. Every spell combination
 involving _Fire, Ice, Lightning,_ or _Earth_ as a base element inflicts damage on the enemy in some way.
-Some enemies are **weak** against certain elements and **resistant** to others. Your spell's base element
-determines whether weakness or resistance applies.
+Some enemies are **weak** against certain elements and **resistant** to others.
 
 The table below displays the known effects (and costs in Power in parentheses) of the four basic elements.
 The effects of the other three elements are left as exercises for the enterprising Spellweaver. 
@@ -33,7 +32,7 @@ kind of exertion than the body is.
 ## Foes ##
 
 While descending into the depths to retrieve your master's spellbook, you may encounter various types 
-of monsters. These monsters may vary in exact type, but the following symbols indicate types:
+of monsters. These monsters may vary in exact species, but the following symbols indicate types:
 
 * `d`: demon
 * `e`: elemental
