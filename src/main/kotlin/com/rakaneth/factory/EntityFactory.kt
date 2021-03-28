@@ -63,6 +63,7 @@ object EntityFactory {
         val newPlayer = creatureFromBP("player", name)
         newPlayer.addComponent(PlayerComponent())
         newPlayer.addComponent(CasterComponent(newPlayer.will))
+        newPlayer.addComponent(XPComponent(newPlayer))
         return newPlayer
     }
 

@@ -42,6 +42,18 @@ of monsters. These monsters may vary in exact species, but the following symbols
 * `D`: greater demon
 * `E`: greater elemental
 
+## Growing Stronger ##
+
+Your master warned you that your task would be dangerous, but he also said you would learn from it.
+Indeed, as you descend into the depths, you will naturally grow stronger in the following ways:
+
+* Attacking an enemy in melee trains `Atk`.
+* Dealing damage to an enemy in melee trains `Dmg`.
+* Being attacked in melee trains `Dfp`.
+* Taking damage from enemies trains `HP` and `Tou`.
+* Suffering effects from enemies trains `HP` and `Tou`.
+* Casting spells trains `Will` and `Pwr`.
+
 
  
 

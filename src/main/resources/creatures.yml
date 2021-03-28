@@ -7,11 +7,11 @@ table:
     desc: A tiny, flying creature made of fire.
     hp: 15
     will: 3
-    damType: FIRE
+    damType: Fire
     atk: 5
     dfp: 1
-    weakness: ICE
-    resistance: FIRE
+    weakness: Ice
+    resistance: Fire
     spd: 13
     ai: HUNT
     freq: 10
@@ -23,7 +23,7 @@ table:
     hp: 5
     atk: 0
     dfp: 0
-    weakness: FIRE
+    weakness: Fire
     spd: 11
     ai: WAIT
     freq: 5
@@ -33,7 +33,7 @@ table:
     name: wolf
     desc: A lone wolf, rabid and ferocious
     hp: 25
-    damType: PHYSICAL
+    damType: Physical
     atk: 10
     dfp: 5
     spd: 15
@@ -50,7 +50,7 @@ table:
     dfp: 6
     spd: 17
     ai: HUNT
-    weakness: FIRE
+    weakness: Fire
     level: 1
     freq: 6
   lesserEarthElemental:
@@ -65,8 +65,8 @@ table:
     will: 5
     ai: HUNT
     level: 2
-    damType: EARTH
-    weakness: LIGHTNING
+    damType: Earth
+    weakness: Lightning
     freq: 5
   lesserFireElemental:
     glyph: e
@@ -79,8 +79,8 @@ table:
     spd: 15
     ai: HUNT
     level: 2
-    damType: FIRE
-    weakness: ICE
+    damType: Fire
+    weakness: Ice
     freq: 5
   lesserIceElemental:
     glyph: e
@@ -94,8 +94,8 @@ table:
     will: 2
     ai: HUNT
     level: 2
-    damType: ICE
-    weakness: FIRE
+    damType: Ice
+    weakness: Fire
     freq: 5
   lesserLightningElemental:
     glyph: e
@@ -107,8 +107,8 @@ table:
     spd: 20
     ai: HUNT
     level: 2
-    damType: LIGHTNING
-    weakness: EARTH
+    damType: Lightning
+    weakness: Earth
     freq: 5
   greaterShadow:
     glyph: D
@@ -121,13 +121,13 @@ table:
     will: 15
     ai: HUNT
     level: 3
-    damType: DARK
-    weakness: LIGHT
+    damType: Dark
+    weakness: Light
   player:
     color: 191,100,191
     desc: Spellweaver's Apprentice
     hp: 30
-    damType: PHYSICAL
+    damType: Physical
     atk: 1
     dfp: 1
     will: 5

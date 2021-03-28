@@ -14,4 +14,6 @@ class CombatantComponent(
     var will: Int = 0,
     var spd: Int = 0,
     override val name: String = "combatant"
-) : Component
+) : Component {
+    var healPerTurn: Int = 0
+}

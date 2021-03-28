@@ -43,4 +43,6 @@ class VitalsComponent(startHP: Int,
         hp -= amt
         Messenger.addMessage("${bearer.name} takes $amt ${element.name} damage", bearer)
     }
+
+    fun heal() { hp = maxHP }
 }

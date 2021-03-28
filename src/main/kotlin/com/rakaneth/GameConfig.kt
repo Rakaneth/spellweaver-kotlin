@@ -42,7 +42,6 @@ class GameConfig {
         const val MSG_W = 40
         const val MSG_H = 10
         val FONT_SIZE: Int  = Toolkit.getDefaultToolkit().screenSize.height / 55
-
         fun create(): GameConfig = GameConfig()
     }
 }

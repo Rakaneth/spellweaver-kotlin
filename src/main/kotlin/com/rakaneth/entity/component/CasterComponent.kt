@@ -15,7 +15,8 @@ class CasterComponent(pwr: Int): Component {
     val pwrStringProp = ComputedDualBinding(pwrProp, maxPwrProp) { pwr, maxPwr -> "Power: $pwr/$maxPwr"}
 
     var pwr: Int by pwrProp.asDelegate()
-    var maxPwr: Int by pwrProp.asDelegate()
+    var maxPwr: Int by maxPwrProp.asDelegate()
+    var pwrPerTurn: Int = 1
 
     fun resetSpell(caster: Entity) {
         spell = Spell(caster.pos, GameState.getMap(caster.mapID).tiles)
@@ -23,4 +24,6 @@ class CasterComponent(pwr: Int): Component {
         spell.range = (caster.will / 2).coerceAtLeast(1)
         spell.radius = (caster.will / 3).coerceAtLeast(1)
     }
+
+    fun restorePwr() { pwr = maxPwr; }
 }

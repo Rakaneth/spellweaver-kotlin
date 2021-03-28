@@ -70,6 +70,30 @@ fun Entity.moveBy(dir: Direction) {
     this.pos = this.pos.translate(dir)
 }
 
+fun Entity.gainStrXP(amt: Int) {
+    this.whenHas(XPComponent::class) {
+        it.strXP += amt
+    }
+}
+
+fun Entity.gainSklXP(amt: Int) {
+    this.whenHas(XPComponent::class) {
+        it.sklXP += amt
+    }
+}
+
+fun Entity.gainSagXP(amt: Int) {
+    this.whenHas(XPComponent::class) {
+        it.sagXP += amt
+    }
+}
+
+fun Entity.gainStamXP(amt: Int) {
+    this.whenHas(XPComponent::class) {
+        it.stamXP += amt
+    }
+}
+
 val Entity.obscuredName: String
     get() = if (GameState.playerCanSee(this)) this.name else "Something"
 

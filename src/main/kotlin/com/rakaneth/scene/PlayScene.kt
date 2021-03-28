@@ -103,6 +103,22 @@ class PlayScene: Scene("play") {
             GameState.player.moveBy(Direction.RIGHT)
             GameState.redraw = true
         }
+        addKeybind(KeyEvent.VK_R, id = "test xp str") {
+            GameState.player.gainStrXP(5)
+            GameState.redraw = true
+        }
+        addKeybind(KeyEvent.VK_T, id = "test xp stam") {
+            GameState.player.gainStamXP(5)
+            GameState.redraw = true
+        }
+        addKeybind(KeyEvent.VK_K, id = "test xp skil") {
+            GameState.player.gainSklXP(5)
+            GameState.redraw = true
+        }
+        addKeybind(KeyEvent.VK_G, id = "test xp sag") {
+            GameState.player.gainSagXP(5)
+            GameState.redraw = true
+        }
 
     }
 
@@ -128,6 +144,8 @@ class PlayScene: Scene("play") {
 
         GameState.redrawProp.onChange {
             if (it.newValue) {
+                hpLabel.text = vitals.hpStringProp.value
+                pwrLabel.text = power.pwrStringProp.value
                 atkLabel.text = "Atk: ${player.atk}"
                 dmgLabel.text = "Dmg: ${player.dmg}"
                 dfpLabel.text = "Dfp: ${player.dfp}"
