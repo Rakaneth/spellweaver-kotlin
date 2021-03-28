@@ -1,6 +1,6 @@
 # HOW TO PLAY #
 
-## Spellcasting ##
+## Spellweaving ##
 
 As an apprentice _Spellweaver_, you have learned to weave four of the seven elements: 
 _Fire, Ice, Lightning,_ and _Earth._ The secrets of the other three elements, _Force, Light, and Darkness,_ 
