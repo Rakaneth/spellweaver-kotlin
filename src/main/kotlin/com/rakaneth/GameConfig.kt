@@ -17,13 +17,14 @@ class GameConfig {
             MapFactory.secondFloor,
             MapFactory.thirdFloor,
             MapFactory.fourthFloor,
-            MapFactory.fifthFloor
+            MapFactory.fifthFloor,
+            MapFactory.testXPFloor
         ).forEach { map ->
             GameState.addMap(map)
         }
 
         GameState.addEntity(EntityFactory.newPlayer("Farin"))
-        GameState.changeLevel("floor1")
+        GameState.changeLevel("xptest")
         EntityFactory.randomSeed(GameState.player, GameState.curMap)
         GameState.update = true
     }

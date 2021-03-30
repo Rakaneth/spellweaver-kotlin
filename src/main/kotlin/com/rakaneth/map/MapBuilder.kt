@@ -2,6 +2,7 @@ package com.rakaneth.map
 
 import com.rakaneth.Swatch
 import com.rakaneth.engine.GameRNG
+import com.rakaneth.factory.DataReader
 import squidpony.squidgrid.mapping.DungeonGenerator
 import squidpony.squidgrid.mapping.DungeonUtility
 import squidpony.squidgrid.mapping.SerpentMapGenerator
@@ -25,6 +26,7 @@ class MapBuilder(val width: Int, val height: Int) {
     private val dgn: DungeonGenerator = DungeonGenerator(width, height, GameRNG.mapRNG)
     private val spt: SerpentMapGenerator = SerpentMapGenerator(width, height, GameRNG.mapRNG, 0.2)
 
+
     fun withID(id: String) = also { this.id = id }
     fun withName(name: String) = also { this.name = name }
     fun withLight(light: Boolean) = also { this.light = light }
@@ -39,6 +41,13 @@ class MapBuilder(val width: Int, val height: Int) {
     fun withBoxCarvers(carvers: Int) = also { this.boxCarvers = carvers }
     fun withCaveCarvers(carvers: Int) = also { this.caveCarvers = carvers }
     fun withRoundCarvers(carvers: Int) = also { this.roundCarvers = carvers }
+    fun buildFromXPFile(fileName: String): GameMap {
+        val tiles = DataReader.readXPFile(fileName)
+        if (!(tiles.size == width && tiles[0].size == height)) {
+            throw IllegalArgumentException("XP file dimensions must match map dimensions")
+        }
+        return GameMap(id, name, tiles, light, wallColor, floorColor)
+    }
 
     fun build(): GameMap {
         spt.putBoxRoomCarvers(boxCarvers)

@@ -73,6 +73,14 @@ object MapFactory {
         .withNamedCreature("greaterShadow")
         .build()
 
+    val testXPFloor = GameMap.newBuilder(60, 60)
+        .withName("XPMapReader")
+        .withID("xptest")
+        .withLight(true)
+        .withWallColor(Swatch.STONE_WALL_BG)
+        .withFloorColor(Swatch.STONE_FLOOR_BG)
+        .buildFromXPFile("base map.xp")
+
     fun connect(fromMap: GameMap, toMap: GameMap, fromChar: Char, toChar: Char) {
         val mutualStairs = fromMap.randomCommunalFloor(toMap)
         val (sx, sy) = mutualStairs

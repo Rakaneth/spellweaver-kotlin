@@ -105,9 +105,6 @@ val Entity.spd
         combatSelector = { it.spd },
         statChangeSelector = { it.spd })
 
-val Entity.spdProp
-    get() = createPropertyFrom(this.spd)
-
 val Entity.will
     get() = this.getStat(
         combatSelector = { it.will },
